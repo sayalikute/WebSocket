@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Web Server Socket</title>
+<style>
+    h1,h2{
+        color: black;
+      }
+    body{
+        background-color:#F5A9BC;
+       }
+    #formset{
+        border:groove black;
+        border-radius: 25px 0 25px 0;    
+        
+    #selectset{
+        width: 173px;
+        height: 21px;
+    }  
+    </style>
+    
+   <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript">
+        
+    function WebSocketTest() {
+      alert("Please wait while we connect to the server...");
+      function log(msg){}
+      
+     //  if ("WebSocket" in mac)
+  //   {
+   //       alert("WebSocket is supported by your Browser!");
+        // Use your own server from the server you gave in text box.
+       var server = document.getElementById("server_name").value ;
+        var wsocket = new WebSocket(server , 'echo-protocol');
+
+        wsocket.onopen = function() {
+         var msg = document.getElementById("client_msg").value;
+          wsocket.send(msg);
+        alert("Connected to the server");
+        };
+
+        wsocket.onmessage = function (evt) {
+          var received_msg = evt.data;
+        document.getElementById("server_msg").value=received_msg;
+        };
+
+        wsocket.onclose = function() {
+          log("Connection is closed...");
+        };   
+         ws.onerror = function()
+        { 
+        alert("WebSocket error..."); 
+     };
+  //}
+ //    else
+    // {
+  //      alert("WebSocket NOT supported by your Browser!");
+ //     }
+    }
+  </script>   
+</head>
+
+<body>
+<form method="post" id="formset" action="" autocomplete="on">
+<center>
+<div align="justify"> </div>
+<h1>CS557(B)_HW#4_15977_Sayali_Kute</h1>
+<hr size="5px groove" color="white" width="1010px"> 
+<h2>Web Socket Server </h2>
+<div id="content_wrapper"></div>
+            <div id="content">
+             <div>
+                   <div><br/>
+                    Server Name: <input class="input_field" id="server_name"
+                        type="text" value="wss://web15977.herokuapp.com/" 
+                        style="width:300px" /> <br></br>
+
+                    Client Message: <input class="input_field" 
+                    id="client_msg"  type="text" value="Hello, How are you?" />
+                    Server Message: <input class="input_field" 
+                    id="server_msg" type="text" />
+                  </div><br />
+                <table style="clear:both">
+                  <tr>
+                     <td width="100px">
+                        <input class="button"  type="button" 
+                          onclick="javascript:WebSocketTest()" 
+                          value="Connect & Send" />
+                     </td>
+                     <td>
+                         <input class="button" type="button" 
+                         onclick="disconnect();" value="Stop" />
+                     </td>
+                  </tr>
+                </table>
+             </div>
+         </div>
+   <div class="cleaner"></div>
+</center>
+</form>    
+</body>
+</html>
+    
